@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn With Me — Sdthankey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0f14;
+      --surface: #161921;
+      --surface2: #1e2230;
+      --border: #2a2f3e;
+      --gold: #f0b429;
+      --gold-soft: #f0b42920;
+      --cream: #e8e2d5;
+      --muted: #7a8099;
+      --accent: #4f8ef7;
+      --danger: #e05555;
+      --success: #3ecf8e;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── TOP NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,20,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--cream); }
+    .nav-actions { display: flex; gap: 1rem; align-items: center; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+      cursor: pointer; border: none; transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-gold { background: var(--gold); color: #0d0f14; }
+    .btn-gold:hover { background: #f7c948; transform: translateY(-1px); box-shadow: 0 4px 16px #f0b42940; }
+    .btn-outline { background: transparent; color: var(--cream); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-ghost { background: var(--surface2); color: var(--cream); }
+    .btn-ghost:hover { background: var(--border); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger:hover { background: #c94444; }
+    .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
+    .btn-icon { padding: 8px; border-radius: var(--radius-sm); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, #f0b42910, transparent);
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: var(--gold);
+      letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; height: 1px; width: 32px; background: var(--gold); opacity: 0.5;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--cream) 40%, var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      color: var(--muted); font-size: 1.05rem; max-width: 520px;
+      margin: 0 auto 2rem; line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; color: var(--gold);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── ADMIN BADGE ── */
+    .admin-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 20px;
+      background: linear-gradient(135deg, #f0b429, #f7c948);
+      color: #0d0f14; font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── MAIN CONTENT ── */
+    .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+    /* ── ADMIN TOOLBAR ── */
+    .admin-toolbar {
+      display: none;
+      background: linear-gradient(135deg, var(--surface), var(--surface2));
+      border: 1px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .admin-toolbar.visible { display: flex; }
+    .admin-toolbar-title {
+      font-size: 0.85rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.8rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; font-weight: 700; color: var(--cream);
+    }
+
+    /* ── TOPIC CARDS ── */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .topic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .topic-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px var(--gold-soft);
+    }
+    .topic-card.active { border-color: var(--gold); }
+    .topic-banner {
+      height: 8px;
+      background: linear-gradient(90deg, var(--gold), #f7c948, #ffd96b);
+    }
+    .topic-body { padding: 1.4rem; }
+    .topic-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--gold-soft); border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1rem;
+    }
+    .topic-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700; color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .topic-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem; }
+    .topic-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.8rem; color: var(--muted);
+    }
+    .topic-unit-count {
+      background: var(--gold-soft); border: 1px solid var(--gold);
+      color: var(--gold); padding: 2px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .topic-actions { display: flex; gap: 6px; }
+
+    /* ── UNITS VIEW ── */
+    .units-view { display: none; }
+    .units-view.open { display: block; animation: slideDown 0.3s ease; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .units-header {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 0.85rem; cursor: pointer;
+      border: none; background: none; padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--gold); }
+    .breadcrumb {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .breadcrumb span { color: var(--gold); }
+
+    .units-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .unit-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .unit-card:hover { border-color: var(--border); }
+
+    .unit-header {
+      display: flex; align-items: stretch; gap: 0;
+      cursor: pointer;
+    }
+    .unit-num {
+      width: 56px; min-width: 56px;
+      background: var(--surface2);
+      border-right: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; color: var(--gold);
+    }
+    .unit-info { flex: 1; padding: 1rem 1.2rem; }
+    .unit-title {
+      font-weight: 600; font-size: 1rem; color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .unit-meta-row {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .unit-meta-item { display: flex; align-items: center; gap: 4px; }
+    .unit-chevron {
+      padding: 0 1rem; display: flex; align-items: center;
+      color: var(--muted); transition: transform 0.25s, color 0.2s;
+    }
+    .unit-card.expanded .unit-chevron { transform: rotate(180deg); color: var(--gold); }
+
+    .unit-body {
+      display: none;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--surface), #181c26);
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .unit-card.expanded .unit-body { display: block; }
+
+    .unit-cover {
+      width: 100%; max-height: 300px; object-fit: cover;
+      border-radius: var(--radius-sm); margin-bottom: 1.2rem;
+      border: 1px solid var(--border);
+    }
+    .unit-summary {
+      font-size: 0.92rem; color: #b8b4a8; line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+    .unit-admin-actions {
+      display: none;
+      gap: 8px; margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .unit-admin-actions.visible { display: flex; }
+
+    /* ── PDF ATTACHMENT ── */
+    .pdf-attachment {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px 16px;
+      margin-bottom: 1.2rem; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .pdf-attachment:hover { border-color: var(--gold); background: var(--gold-soft); }
+    .pdf-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: #e0555520; border: 1px solid var(--danger);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .pdf-info { flex: 1; min-width: 0; }
+    .pdf-name {
+      font-size: 0.88rem; font-weight: 600; color: var(--cream);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pdf-size { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+    .pdf-download {
+      font-size: 0.78rem; color: var(--gold); font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ── COMMENTS ── */
+    .comments-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .comments-title {
+      font-size: 0.85rem; font-weight: 600; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+    .comment-form {
+      display: flex; gap: 10px; margin-bottom: 1.2rem; flex-wrap: wrap;
+    }
+    .comment-form input, .comment-form textarea {
+      flex: 1; min-width: 150px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--cream);
+      padding: 8px 12px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      transition: border-color 0.2s; resize: none;
+    }
+    .comment-form input:focus, .comment-form textarea:focus {
+      outline: none; border-color: var(--gold);
+    }
+    .comment-form textarea { height: 60px; }
+    .comments-list { display: flex; flex-direction: column; gap: 10px; }
+    .comment-item {
+      background: var(--surface2); border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      border-left: 3px solid var(--border);
+    }
+    .comment-author {
+      font-size: 0.78rem; font-weight: 600; color: var(--gold);
+      margin-bottom: 3px;
+    }
+    .comment-text { font-size: 0.85rem; color: #b8b4a8; line-height: 1.5; }
+    .comment-time { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+    .no-comments { font-size: 0.83rem; color: var(--muted); font-style: italic; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem;
+      border: 2px dashed var(--border); border-radius: var(--radius);
+    }
+    .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .empty-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream); margin-bottom: 0.5rem; }
+    .empty-sub { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%; max-width: 460px;
+      padding: 2rem;
+      position: relative;
+      animation: popIn 0.25s cubic-bezier(.34,1.56,.64,1);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+    .modal-large { max-width: 600px; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--surface2); border: none; color: var(--muted);
+      width: 32px; height: 32px; border-radius: 50%;
+      cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--danger); color: #fff; }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--cream);
+    }
+
+    /* ── FORM FIELDS ── */
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block; font-size: 0.8rem; font-weight: 500;
+      color: var(--muted); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--cream);
+      padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none; border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--gold-soft);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-select { cursor: pointer; }
+    .form-hint { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── FILE UPLOAD ── */
+    .file-upload-area {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .file-upload-area:hover, .file-upload-area.drag-over {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+    }
+    .file-upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .file-upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .file-upload-text { font-size: 0.85rem; color: var(--muted); }
+    .file-upload-text strong { color: var(--gold); }
+    .file-preview {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 10px;
+    }
+    .file-preview-icon { font-size: 1.4rem; }
+    .file-preview-name { flex: 1; font-size: 0.85rem; color: var(--cream); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .file-preview-size { font-size: 0.75rem; color: var(--muted); }
+    .file-preview-remove {
+      background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1rem; padding: 2px 4px;
+    }
+
+    /* ── LOGIN SPECIFIC ── */
+    .login-logo {
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .login-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--gold);
+    }
+    .login-subtitle { font-size: 0.83rem; color: var(--muted); text-align: center; margin-bottom: 1.5rem; }
+    .error-msg {
+      background: #e0555515; border: 1px solid var(--danger);
+      color: var(--danger); border-radius: var(--radius-sm);
+      padding: 8px 14px; font-size: 0.83rem; margin-bottom: 1rem;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 300;
+      background: var(--success); color: #fff;
+      padding: 12px 20px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 500;
+      display: none; align-items: center; gap: 8px;
+      animation: slideInRight 0.3s ease;
+      max-width: 280px;
+    }
+    .toast.show { display: flex; }
+    .toast.error { background: var(--danger); }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+    /* ── DIVIDER ── */
+    .divider { height: 1px; background: var(--border); margin: 2rem 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem; text-align: center;
+      color: var(--muted); font-size: 0.8rem;
+      position: relative; z-index: 1;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .main { padding: 0 1rem 3rem; }
+      .hero { padding: 3rem 1rem 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">learn<span>.</span>sdthankey</div>
+  <div class="nav-actions">
+    <div id="adminBadge" class="admin-badge" style="display:none;">⭐ Admin</div>
+    <button class="btn btn-outline" id="loginBtn" onclick="openLogin()">🔐 Admin Login</button>
+    <button class="btn btn-danger btn-sm" id="logoutBtn" style="display:none;" onclick="logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Knowledge is Power</div>
+  <h1>Learn With Me</h1>
+  <p>Exploring new topics every day — with units, notes, PDFs, and resources. Read, learn, and leave a comment.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num" id="statTopics">0</div>
+      <div class="stat-label">Topics</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statUnits">0</div>
+      <div class="stat-label">Units</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="statComments">0</div>
+      <div class="stat-label">Comments</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div class="main">
+
+  <!-- Admin Toolbar -->
+  <div class="admin-toolbar" id="adminToolbar">
+    <div>
+      <div class="admin-toolbar-title">🛠 Admin Panel</div>
+      <div style="font-size:0.78rem;color:var(--muted);margin-top:2px;">You are logged in as Admin. Full edit access enabled.</div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-gold" onclick="openAddTopic()">＋ New Topic</button>
+    </div>
+  </div>
+
+  <!-- Topics View -->
+  <div id="topicsView">
+    <div class="section-header">
+      <div class="section-title">All Topics</div>
+    </div>
+    <div class="topics-grid" id="topicsGrid"></div>
+  </div>
+
+  <!-- Units View -->
+  <div class="units-view" id="unitsView">
+    <div class="units-header">
+      <button class="back-btn" onclick="closeUnitsView()">← Back to Topics</button>
+      <div class="breadcrumb">Topics / <span id="breadTopicName">—</span></div>
+    </div>
+    <div class="section-header">
+      <div class="section-title" id="unitsViewTitle"></div>
+      <button class="btn btn-gold" id="addUnitBtn" style="display:none;" onclick="openAddUnit()">＋ Add Unit</button>
+    </div>
+    <div class="units-list" id="unitsList"></div>
+  </div>
+</div>
+
+<footer>
+  Made with ❤️ by <span>sdthankey</span> &nbsp;·&nbsp; Learn Something New Every Day
+</footer>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast">✓ Done!</div>
+
+<!-- ════════ MODALS ════════ -->
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <div class="login-logo"><div class="login-logo-text">Admin Access</div></div>
+    <div class="login-subtitle">Only the authorized admin can log in</div>
+    <div class="error-msg" id="loginError">❌ Incorrect password!</div>
+    <div class="form-group">
+      <label class="form-label">Admin Password</label>
+      <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="doLogin()">🔐 Login as Admin</button>
+  </div>
+</div>
+
+<!-- Add/Edit Topic Modal -->
+<div class="modal-overlay" id="topicModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('topicModal')">✕</button>
+    <div class="modal-title" id="topicModalTitle">New Topic</div>
+    <div class="form-group">
+      <label class="form-label">Topic Name *</label>
+      <input type="text" class="form-input" id="topicName" placeholder="e.g. Cloud Computing"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Description</label>
+      <textarea class="form-textarea" id="topicDesc" placeholder="Write something about this topic..." style="min-height:80px;"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Icon / Emoji *</label>
+      <input type="text" class="form-input" id="topicIcon" placeholder="☁️" maxlength="4"/>
+      <div class="form-hint">Any emoji works here</div>
+    </div>
+    <input type="hidden" id="topicEditId"/>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveTopic()">Save Topic</button>
+  </div>
+</div>
+
+<!-- Add/Edit Unit Modal -->
+<div class="modal-overlay" id="unitModal">
+  <div class="modal modal-large">
+    <button class="modal-close" onclick="closeModal('unitModal')">✕</button>
+    <div class="modal-title" id="unitModalTitle">Add New Unit</div>
+    <div class="form-group">
+      <label class="form-label">Unit Title *</label>
+      <input type="text" class="form-input" id="unitTitle" placeholder="e.g. Introduction to Cloud Computing"/>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Date *</label>
+        <input type="date" class="form-input" id="unitDate"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Time</label>
+        <input type="time" class="form-input" id="unitTime"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Cover Photo URL</label>
+      <input type="url" class="form-input" id="unitPhoto" placeholder="https://example.com/image.jpg"/>
+      <div class="form-hint">Paste any direct image link here</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Summary / Notes *</label>
+      <textarea class="form-textarea" id="unitSummary" placeholder="What will be covered in this unit..." style="min-height:120px;"></textarea>
+    </div>
+    <!-- PDF Upload -->
+    <div class="form-group">
+      <label class="form-label">📄 Attach PDF (Optional)</label>
+      <div class="file-upload-area" id="pdfDropArea">
+        <input type="file" id="unitPdfFile" accept=".pdf" onchange="handlePdfSelect(this)"/>
+        <div class="file-upload-icon">📄</div>
+        <div class="file-upload-text">
+          <strong>Click to upload</strong> or drag & drop a PDF<br>
+          <span style="font-size:0.75rem;">Max 5 MB · PDF only</span>
+        </div>
+      </div>
+      <div id="pdfPreviewArea" style="display:none;"></div>
+      <input type="hidden" id="unitPdfData"/>
+      <input type="hidden" id="unitPdfName"/>
+    </div>
+    <input type="hidden" id="unitEditId"/>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="saveUnit()">Save Unit</button>
+  </div>
+</div>
+
+<!-- ── SCRIPT ── -->
+<script>
+// ════════════════════════════════════
+//   CONFIG
+// ════════════════════════════════════
+const API = '/lwm/api.php';
+
+// ════════════════════════════════════
+//   AUTH
+// ════════════════════════════════════
+let isAdmin = false;
+let adminPass = '';
+
+async function doLogin() {
+  const p = document.getElementById('loginPassword').value.trim();
+  if (!p) return;
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'check_admin', password: p, adminPass: p })
+    });
+    const data = await res.json();
+    if (data.success) {
+      isAdmin = true;
+      adminPass = p;
+      sessionStorage.setItem('lwm_admin', '1');
+      sessionStorage.setItem('lwm_apass', p);
+      closeModal('loginModal');
+      applyAdminUI();
+      toast('✅ Admin login successful!');
+      document.getElementById('loginError').classList.remove('show');
+    } else {
+      document.getElementById('loginError').classList.add('show');
+    }
+  } catch(e) {
+    document.getElementById('loginError').classList.add('show');
+  }
+}
+
+function logout() {
+  isAdmin = false;
+  adminPass = '';
+  sessionStorage.removeItem('lwm_admin');
+  sessionStorage.removeItem('lwm_apass');
+  applyAdminUI();
+  toast('Logged out');
+}
+
+function applyAdminUI() {
+  document.getElementById('loginBtn').style.display = isAdmin ? 'none' : '';
+  document.getElementById('logoutBtn').style.display = isAdmin ? '' : 'none';
+  document.getElementById('adminBadge').style.display = isAdmin ? '' : 'none';
+  document.getElementById('adminToolbar').classList.toggle('visible', isAdmin);
+  document.getElementById('addUnitBtn').style.display = isAdmin ? '' : 'none';
+  document.querySelectorAll('.unit-admin-actions').forEach(el => el.classList.toggle('visible', isAdmin));
+  document.querySelectorAll('.topic-admin-actions').forEach(el => el.style.display = isAdmin ? 'flex' : 'none');
+  renderTopics();
+}
+
+// Check session on load
+if (sessionStorage.getItem('lwm_admin') === '1') {
+  isAdmin = true;
+  adminPass = sessionStorage.getItem('lwm_apass') || '';
+}
+
+// ════════════════════════════════════
+//   API HELPERS
+// ════════════════════════════════════
+async function apiPost(action, body) {
+  const res = await fetch(`${API}?action=${action}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ ...body, adminPass })
+  });
+  return res.json();
+}
+async function apiGet(action, params = {}) {
+  const qs = new URLSearchParams({ action, ...params }).toString();
+  const res = await fetch(`${API}?${qs}`);
+  return res.json();
+}
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
+// ════════════════════════════════════
+//   STATE
+// ════════════════════════════════════
+let currentTopicId = null;
+let topicsCache = [];
+
+// ════════════════════════════════════
+//   STATS
+// ════════════════════════════════════
+async function updateStats() {
+  try {
+    const stats = await apiGet('get_stats');
+    document.getElementById('statTopics').textContent   = stats.topics   ?? 0;
+    document.getElementById('statUnits').textContent    = stats.units    ?? 0;
+    document.getElementById('statComments').textContent = stats.comments ?? 0;
+  } catch(e) {
+    // fallback — silently ignore
+  }
+}
+
+// ════════════════════════════════════
+//   TOPICS
+// ════════════════════════════════════
+async function renderTopics() {
+  const grid = document.getElementById('topicsGrid');
+  grid.innerHTML = '<div style="color:var(--muted);font-size:0.9rem;padding:2rem;">Loading topics…</div>';
+  const topics = await apiGet('get_topics');
+  topicsCache = Array.isArray(topics) ? topics : [];
+  grid.innerHTML = '';
+  if (topicsCache.length === 0) {
+    grid.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1;">
+        <div class="empty-icon">📚</div>
+        <div class="empty-title">No topics yet</div>
+        <div class="empty-sub">${isAdmin ? 'Click "New Topic" in the admin toolbar to get started!' : 'The admin will add topics soon — check back later!'}</div>
+      </div>`;
+    return;
+  }
+  topicsCache.forEach(topic => {
+    const unitCount = parseInt(topic.unit_count || 0);
+    const div = document.createElement('div');
+    div.className = 'topic-card';
+    div.innerHTML = `
+      <div class="topic-banner"></div>
+      <div class="topic-body">
+        <div class="topic-icon">${topic.icon}</div>
+        <div class="topic-name">${esc(topic.name)}</div>
+        <div class="topic-desc">${esc(topic.description || 'No description yet.')}</div>
+        <div class="topic-meta">
+          <span class="topic-unit-count">${unitCount} Unit${unitCount !== 1 ? 's' : ''}</span>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div class="topic-admin-actions" style="display:${isAdmin ? 'flex' : 'none'};gap:6px;">
+              <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditTopic('${topic.id}')">✏️ Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteTopic('${topic.id}')">🗑</button>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();openUnits('${topic.id}')">Open →</button>
+          </div>
+        </div>
+      </div>`;
+    grid.appendChild(div);
+  });
+  updateStats();
+}
+
+function openAddTopic() {
+  if (!isAdmin) return;
+  document.getElementById('topicName').value = '';
+  document.getElementById('topicDesc').value = '';
+  document.getElementById('topicIcon').value = '';
+  document.getElementById('topicEditId').value = '';
+  document.getElementById('topicModalTitle').textContent = 'New Topic';
+  openModal('topicModal');
+}
+
+function openEditTopic(id) {
+  if (!isAdmin) return;
+  const t = topicsCache.find(t => t.id === id);
+  if (!t) return;
+  document.getElementById('topicName').value = t.name;
+  document.getElementById('topicDesc').value = t.description || '';
+  document.getElementById('topicIcon').value = t.icon;
+  document.getElementById('topicEditId').value = id;
+  document.getElementById('topicModalTitle').textContent = 'Edit Topic';
+  openModal('topicModal');
+}
+
+async function saveTopic() {
+  if (!isAdmin) return;
+  const name = document.getElementById('topicName').value.trim();
+  const desc = document.getElementById('topicDesc').value.trim();
+  const icon = document.getElementById('topicIcon').value.trim() || '📖';
+  if (!name) { toast('Topic name is required!', true); return; }
+  const editId = document.getElementById('topicEditId').value;
+  const res = await apiPost('save_topic', { id: editId || undefined, name, desc, icon });
+  if (res.error) { toast(res.error, true); return; }
+  closeModal('topicModal');
+  renderTopics();
+  toast(editId ? '✅ Topic updated!' : '✅ Topic created!');
+}
+
+async function deleteTopic(id) {
+  if (!isAdmin) return;
+  if (!confirm('Delete this topic and all its units?')) return;
+  const res = await apiPost('delete_topic', { id });
+  if (res.error) { toast(res.error, true); return; }
+  renderTopics();
+  toast('🗑 Topic deleted');
+}
+
+// ════════════════════════════════════
+//   UNITS VIEW
+// ════════════════════════════════════
+function openUnits(topicId) {
+  const topic = topicsCache.find(t => t.id === topicId);
+  if (!topic) return;
+  currentTopicId = topicId;
+  document.getElementById('topicsView').style.display = 'none';
+  document.getElementById('unitsView').classList.add('open');
+  document.getElementById('breadTopicName').textContent = topic.name;
+  document.getElementById('unitsViewTitle').textContent = `${topic.icon}  ${topic.name}`;
+  renderUnits();
+}
+
+function closeUnitsView() {
+  currentTopicId = null;
+  document.getElementById('topicsView').style.display = '';
+  document.getElementById('unitsView').classList.remove('open');
+}
+
+async function renderUnits() {
+  if (!currentTopicId) return;
+  const list = document.getElementById('unitsList');
+  list.innerHTML = '<div style="color:var(--muted);padding:2rem;">Loading units…</div>';
+  const units = await apiGet('get_units', { topic_id: currentTopicId });
+  list.innerHTML = '';
+  if (!Array.isArray(units) || units.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <div class="empty-title">No units yet</div>
+        <div class="empty-sub">${isAdmin ? 'Click "Add Unit" to add the first unit!' : 'The admin will add units soon!'}</div>
+      </div>`;
+    return;
+  }
+  for (const unit of units) {
+    const comments = await apiGet('get_comments', { unit_id: unit.id });
+    const commentList = Array.isArray(comments) ? comments : [];
+    const card = document.createElement('div');
+    card.className = 'unit-card';
+    card.id = 'unit_' + unit.id;
+
+    let pdfHtml = '';
+    if (unit.pdf_url && unit.pdf_filename) {
+      pdfHtml = `
+        <a class="pdf-attachment" href="${esc(unit.pdf_url)}" download="${esc(unit.pdf_filename)}" target="_blank" onclick="event.stopPropagation();toast('📄 Downloading PDF...')">
+          <div class="pdf-icon">📄</div>
+          <div class="pdf-info">
+            <div class="pdf-name">${esc(unit.pdf_filename)}</div>
+            <div class="pdf-size">PDF Attachment</div>
+          </div>
+          <div class="pdf-download">⬇ Download</div>
+        </a>`;
+    }
+
+    card.innerHTML = `
+      <div class="unit-header" onclick="toggleUnit('${unit.id}')">
+        <div class="unit-num">${unit.num}</div>
+        <div class="unit-info">
+          <div class="unit-title">${esc(unit.title)}</div>
+          <div class="unit-meta-row">
+            ${unit.date_val ? `<span class="unit-meta-item">📅 ${formatDate(unit.date_val)}</span>` : ''}
+            ${unit.time_val ? `<span class="unit-meta-item">⏰ ${unit.time_val}</span>` : ''}
+            ${unit.pdf_filename ? `<span class="unit-meta-item">📄 PDF attached</span>` : ''}
+            <span class="unit-meta-item">💬 ${commentList.length} comment${commentList.length !== 1 ? 's' : ''}</span>
+          </div>
+        </div>
+        <div class="unit-chevron">▾</div>
+      </div>
+      <div class="unit-body">
+        ${unit.photo ? `<img src="${esc(unit.photo)}" class="unit-cover" onerror="this.style.display='none'" alt="Cover"/>` : ''}
+        <div class="unit-summary">${esc(unit.summary || 'No summary yet.')}</div>
+        ${pdfHtml}
+        <div class="unit-admin-actions ${isAdmin ? 'visible' : ''}">
+          <button class="btn btn-ghost btn-sm" onclick="openEditUnit('${unit.id}')">✏️ Edit Unit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteUnit('${unit.id}')">🗑 Delete</button>
+        </div>
+        <div class="comments-section">
+          <div class="comments-title">💬 Comments (${commentList.length})</div>
+          <div class="comment-form">
+            <input type="text" placeholder="Your name" id="cname_${unit.id}" maxlength="40"/>
+            <textarea placeholder="Write your comment..." id="ctext_${unit.id}"></textarea>
+            <button class="btn btn-gold btn-sm" onclick="postComment('${unit.id}')">Post</button>
+          </div>
+          <div class="comments-list" id="clist_${unit.id}">
+            ${commentList.length === 0
+              ? '<div class="no-comments">Be the first to comment! 👇</div>'
+              : commentList.map(c => `
+                <div class="comment-item">
+                  <div class="comment-author">${esc(c.name)}</div>
+                  <div class="comment-text">${esc(c.text)}</div>
+                  <div class="comment-time">${new Date(c.created_at).toLocaleString('en-IN')}</div>
+                </div>`).join('')
+            }
+          </div>
+        </div>
+      </div>`;
+    list.appendChild(card);
+  }
+}
+
+function toggleUnit(id) {
+  const card = document.getElementById('unit_' + id);
+  card.classList.toggle('expanded');
+}
+
+// ════════════════════════════════════
+//   PDF UPLOAD (file reference only)
+// ════════════════════════════════════
+let currentPdfFile = null;
+let currentPdfName = null;
+
+function handlePdfSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.type !== 'application/pdf') { toast('Only PDF files are allowed!', true); input.value = ''; return; }
+  if (file.size > 20 * 1024 * 1024) { toast('PDF is too large! Max 20 MB.', true); input.value = ''; return; }
+  currentPdfFile = file;
+  currentPdfName = file.name;
+  showPdfPreview(file.name, file.size);
+}
+
+function showPdfPreview(name, size) {
+  const area = document.getElementById('pdfPreviewArea');
+  area.style.display = 'block';
+  const kb = (size / 1024).toFixed(1);
+  area.innerHTML = `
+    <div class="file-preview">
+      <div class="file-preview-icon">📄</div>
+      <div class="file-preview-name">${esc(name)}</div>
+      <div class="file-preview-size">${kb} KB</div>
+      <button class="file-preview-remove" onclick="removePdf()" title="Remove">✕</button>
+    </div>`;
+  document.getElementById('pdfDropArea').style.display = 'none';
+}
+
+function removePdf() {
+  currentPdfFile = null;
+  currentPdfName = null;
+  document.getElementById('unitPdfData').value = '';
+  document.getElementById('unitPdfName').value = '';
+  document.getElementById('unitPdfFile').value = '';
+  document.getElementById('pdfPreviewArea').style.display = 'none';
+  document.getElementById('pdfDropArea').style.display = 'block';
+}
+
+// ════════════════════════════════════
+//   UNIT CRUD
+// ════════════════════════════════════
+function openAddUnit() {
+  if (!isAdmin) return;
+  document.getElementById('unitTitle').value = '';
+  document.getElementById('unitDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('unitTime').value = '';
+  document.getElementById('unitPhoto').value = '';
+  document.getElementById('unitSummary').value = '';
+  document.getElementById('unitEditId').value = '';
+  document.getElementById('unitModalTitle').textContent = 'Add New Unit';
+  removePdf();
+  openModal('unitModal');
+}
+
+async function openEditUnit(id) {
+  if (!isAdmin) return;
+  const units = await apiGet('get_units', { topic_id: currentTopicId });
+  const u = Array.isArray(units) ? units.find(u => u.id === id) : null;
+  if (!u) return;
+  document.getElementById('unitTitle').value = u.title;
+  document.getElementById('unitDate').value = u.date_val || '';
+  document.getElementById('unitTime').value = u.time_val || '';
+  document.getElementById('unitPhoto').value = u.photo || '';
+  document.getElementById('unitSummary').value = u.summary || '';
+  document.getElementById('unitEditId').value = id;
+  document.getElementById('unitModalTitle').textContent = 'Edit Unit';
+  removePdf();
+  if (u.pdf_filename) {
+    currentPdfName = u.pdf_filename;
+    const area = document.getElementById('pdfPreviewArea');
+    area.style.display = 'block';
+    area.innerHTML = `
+      <div class="file-preview">
+        <div class="file-preview-icon">📄</div>
+        <div class="file-preview-name">${esc(u.pdf_filename)}</div>
+        <div class="file-preview-size">Previously uploaded — upload new to replace</div>
+        <button class="file-preview-remove" onclick="removePdf()" title="Remove">✕</button>
+      </div>`;
+    document.getElementById('pdfDropArea').style.display = 'none';
+  }
+  openModal('unitModal');
+}
+
+async function saveUnit() {
+  if (!isAdmin || !currentTopicId) return;
+  const title   = document.getElementById('unitTitle').value.trim();
+  const dateVal = document.getElementById('unitDate').value;
+  const timeVal = document.getElementById('unitTime').value;
+  const photo   = document.getElementById('unitPhoto').value.trim();
+  const summary = document.getElementById('unitSummary').value.trim();
+  const editId  = document.getElementById('unitEditId').value;
+  if (!title) { toast('Unit title is required!', true); return; }
+
+  // Use FormData for file upload
+  const fd = new FormData();
+  fd.append('action', 'save_unit');
+  fd.append('adminPass', adminPass);
+  fd.append('topic_id', currentTopicId);
+  fd.append('title', title);
+  fd.append('date_val', dateVal);
+  fd.append('time_val', timeVal);
+  fd.append('photo', photo);
+  fd.append('summary', summary);
+  if (editId) fd.append('id', editId);
+  if (currentPdfFile) fd.append('pdf', currentPdfFile);
+
+  toast('⏳ Saving…');
+  try {
+    const res = await fetch(API, { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.error) { toast(data.error, true); return; }
+    closeModal('unitModal');
+    renderUnits();
+    toast(editId ? '✅ Unit updated!' : '✅ Unit added!');
+  } catch(e) {
+    toast('Save failed. Check connection.', true);
+  }
+}
+
+async function deleteUnit(id) {
+  if (!isAdmin) return;
+  if (!confirm('Delete this unit?')) return;
+  const res = await apiPost('delete_unit', { id, topic_id: currentTopicId });
+  if (res.error) { toast(res.error, true); return; }
+  renderUnits();
+  toast('🗑 Unit deleted');
+}
+
+// ════════════════════════════════════
+//   COMMENTS
+// ════════════════════════════════════
+async function postComment(unitId) {
+  const name = document.getElementById('cname_' + unitId).value.trim();
+  const text = document.getElementById('ctext_' + unitId).value.trim();
+  if (!name) { toast('Please enter your name!', true); return; }
+  if (!text) { toast('Please write a comment!', true); return; }
+  const res = await apiPost('post_comment', { unit_id: unitId, name, text });
+  if (res.error) { toast(res.error, true); return; }
+  document.getElementById('cname_' + unitId).value = '';
+  document.getElementById('ctext_' + unitId).value = '';
+  renderUnits();
+  setTimeout(() => {
+    const card = document.getElementById('unit_' + unitId);
+    if (card) card.classList.add('expanded');
+  }, 100);
+  toast('💬 Comment posted!');
+}
+
+// ════════════════════════════════════
+//   HELPERS
+// ════════════════════════════════════
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+}
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function openLogin() { openModal('loginModal'); }
+
+let toastTimer;
+function toast(msg, isErr = false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.toggle('error', isErr);
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// Drag & drop for PDF
+const dropArea = document.getElementById('pdfDropArea');
+if (dropArea) {
+  dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('drag-over'); });
+  dropArea.addEventListener('dragleave', () => dropArea.classList.remove('drag-over'));
+  dropArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dropArea.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const input = document.getElementById('unitPdfFile');
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      handlePdfSelect(input);
+    }
+  });
+}
+
+// ════════════════════════════════════
+//   INIT
+// ════════════════════════════════════
+applyAdminUI();
+updateStats();
+</script>
+</body>
+</html>
